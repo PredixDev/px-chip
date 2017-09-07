@@ -1,0 +1,86 @@
+<!--
+    Relative paths assume component is being run from inside an app or another component, where dependencies are flat
+    siblings. When this component is run from its own repo (e.g. tests, examples), we assume the server is started with
+    'gulp serve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
+-->
+<link rel="import" href="../polymer/polymer.html"/>
+<link rel="import" href="../px-icon-set/px-icon-set.html"/>
+<link rel="import" href="../px-icon-set/px-icon.html"/>
+<link rel="import" href="css/px-chip-styles.html"/>
+
+<!--
+
+### Usage
+
+    <px-chip content="salmon"></px-chip>
+
+### Styling
+The following custom properties are available for styling:
+
+Custom property | Description
+:----------------|:-------------
+`--px-chip-border-color` | Border or outline color for all chips
+`--px-chip-background-color` | Background color for all chips
+`--px-chip-text-color` | Text color for all chips
+
+@element px-chip
+@blurb REPLACE THIS TEXT WITH A COMPONENT DESCRIPTION
+@homepage index.html
+@demo index.html
+-->
+
+<dom-module id="px-chip">
+  <template>
+    <style include="px-chip-styles"></style>
+    <div class="chip zeta">
+      <span class="chip--content truncate">
+        {{content}}
+      </span>
+      <px-icon icon="px-nav:close" class="chip-actionable-icon actionable actionable--secondary" on-tap="_clearTag"></px-icon>
+    </div>
+  </template>
+</dom-module>
+
+<!-- <script src="dist/px-chip.js"></script> -->
+<script>
+  Polymer({
+
+    is: 'px-chip',
+
+    properties: {
+      /**
+      * The text in the chip
+      *
+      * @property content
+      */
+      content: {
+        type: String
+      },
+      /**
+      * The actionable icon to the right of the text
+      *
+      * @property actionIcon
+      */
+      actionIcon: {
+        type: String
+      },
+      /**
+      * The static icon to the left of the text (optional)
+      *
+      * @property staticIcon
+      */
+      staticIcon: {
+        type: String
+      }
+    },
+
+    /**
+     *
+     * @method _clearTag
+     * @param event
+     */
+    _clearTag: function(e) {
+      this.setAttribute("style", "display:none");
+    }
+  });
+</script>
