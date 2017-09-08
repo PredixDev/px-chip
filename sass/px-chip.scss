@@ -34,28 +34,51 @@
 // Meta
 
 // Objects
-@import "px-actionable-design/_objects.actionable.scss";
 
 // Component
+input[type=checkbox] {
+  display: none;
+}
 
 .chip {
   display: flex;
   height: 20px;
+  max-width: fit-content;
   padding-left: 10px;
   padding-right: 10px;
-  background-color: lightgray;
-  border: 1px solid skyblue;
+  background-color: var(--px-chip-background-color, white);
+  border: 1px solid var(--px-chip-border-color, gray);
+  &:hover {
+    background-color: var(--px-chip-background-color--hover, rgba(gray, 0.2));
+    border: 1px solid var(--px-chip-border-color--hover, gray);
+    .chip__actionable-icon {
+      color: var(--px-chip-icon-color--hover, blue);
+    }
+  }
+  &:checked {
+    background-color: var(--px-chip-background-color--selected, white);
+    border: 1px solid var(--px-chip-border-color--selected, blue);
+  }
 }
 
-.chip--content {
+.chip[selected] {
+  background-color: var(--px-chip-background-color--selected, white);
+  border: 1px solid var(--px-chip-border-color--selected, blue);
+}
+
+.chip__content {
   line-height: 20px;
   word-wrap: break-word;
   min-width: 0px;
-  max-width: 60px;
-  color: hotpink;
+  max-width: 80px;
+  color: var(--px-chip-text-color, gray);
 }
 
-.chip-actionable-icon {
+.chip__content[selected] {
+  color: var(--px-chip-text-color--selected, blue);
+}
+
+.chip__actionable-icon {
   flex: none;
   margin-left: auto;
   min-width: calculateRem(16px);

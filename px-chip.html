@@ -19,9 +19,16 @@ The following custom properties are available for styling:
 
 Custom property | Description
 :----------------|:-------------
-`--px-chip-border-color` | Border or outline color for all chips
-`--px-chip-background-color` | Background color for all chips
-`--px-chip-text-color` | Text color for all chips
+`--px-chip-border-color` | Border or outline color for chip
+`--px-chip-background-color` | Background color for chip
+`--px-chip-text-color` | Text color for chip content
+`--px-chip-border-color--hover` | Border or outline color for chip on hover
+`--px-chip-background-color--hover`| Background color for chip on hover
+`--px-chip-text-color--hover` | Text color for chip content on hover
+`--px-chip-icon-color--hover` | Icon color on hover
+`--px-chip-border-color--selected` | Border or outline color for chip on selected
+`--px-chip-background-color--selected` | Background color for chip on selected
+`--px-chip-text-color--selected` | Text color for chip content on selected
 
 @element px-chip
 @blurb REPLACE THIS TEXT WITH A COMPONENT DESCRIPTION
@@ -32,12 +39,13 @@ Custom property | Description
 <dom-module id="px-chip">
   <template>
     <style include="px-chip-styles"></style>
-    <div class="chip zeta">
-      <span class="chip--content truncate">
+    <input type="checkbox" id="chipToggle" on-tap="handleSelect">
+    <label for="chipToggle" class="chip zeta" selected$="[[selected]]">
+      <span class="chip__content truncate" selected$="[[selected]]">
         {{content}}
       </span>
-      <px-icon icon="px-nav:close" class="chip-actionable-icon actionable actionable--secondary" on-tap="_clearTag"></px-icon>
-    </div>
+      <px-icon icon="px-nav:close" class="chip__actionable-icon" on-tap="_clearTag"></px-icon>
+    </label>
   </template>
 </dom-module>
 
@@ -71,9 +79,25 @@ Custom property | Description
       */
       staticIcon: {
         type: String
+      },
+      /**
+      * Whether or not this chip is selected
+      *
+      * @property selected
+      */
+      selected: {
+        type: Boolean,
+        notify: true,
+        value: false
       }
     },
-
+    /**
+     * update `selected` property based on value of checkbox
+     * @method handleSelect
+     */
+    handleSelect: function() {
+      this.selected = document.querySelector('#chipToggle').checked;
+    },
     /**
      *
      * @method _clearTag
