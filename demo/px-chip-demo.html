@@ -36,7 +36,9 @@
       <!-- Component ---------------------------------------------------------->
       <px-demo-component>
         <px-chip
-          content="{{props.content.value}}">
+          content="{{props.content.value}}"
+          icon="{{props.icon.value}}"
+          show-icon="{{props.showIcon.value}}">
         </px-chip>
       </px-demo-component>
       <!-- END Component ------------------------------------------------------>
@@ -96,6 +98,16 @@
         type: String,
         defaultValue: 'Some text here',
         inputType: 'text'
+      },
+      icon: {
+        type: String,
+        defaultValue: 'px-nav:close',
+        inputType: 'text'
+      },
+      showIcon: {
+        type: Boolean,
+        defaultValue: true,
+        inputType: 'toggle'
       }
     }
   });

@@ -44,7 +44,9 @@ Custom property | Description
       <span class="chip__content truncate" selected$="[[selected]]">
         {{content}}
       </span>
-      <px-icon icon="px-nav:close" class="chip__actionable-icon" on-tap="_clearTag"></px-icon>
+      <template is="dom-if" if="{{showIcon}}">
+        <px-icon icon={{icon}} class="chip__actionable-icon" on-tap="_clearTag"></px-icon>
+      </template>
     </label>
   </template>
 </dom-module>
@@ -65,19 +67,19 @@ Custom property | Description
         type: String
       },
       /**
-      * The actionable icon to the right of the text
+      * Whether or not to show an icon
       *
-      * @property actionIcon
+      * @property selected
       */
-      actionIcon: {
-        type: String
+      showIcon: {
+        type: Boolean
       },
       /**
-      * The static icon to the left of the text (optional)
+      * The icon to the right of the text
       *
-      * @property staticIcon
+      * @property icon
       */
-      staticIcon: {
+      icon: {
         type: String
       },
       /**
