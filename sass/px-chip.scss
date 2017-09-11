@@ -49,6 +49,7 @@ input[type=checkbox] {
   background-color: var(--px-chip-background-color, white);
   border: 1px solid var(--px-chip-border-color, gray);
   &:hover {
+    cursor: pointer;
     background-color: var(--px-chip-background-color--hover, rgba(gray, 0.2));
     border: 1px solid var(--px-chip-border-color--hover, gray);
     .chip__actionable-icon {

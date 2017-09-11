@@ -90,7 +90,7 @@ Custom property | Description
       selected: {
         type: Boolean,
         notify: true,
-        value: false
+        value: true
       }
     },
     /**
@@ -99,6 +99,7 @@ Custom property | Description
      */
     handleSelect: function() {
       this.selected = document.querySelector('#chipToggle').checked;
+      this.showIcon = this.selected;
     },
     /**
      *
@@ -106,7 +107,8 @@ Custom property | Description
      * @param event
      */
     _clearTag: function(e) {
-      this.setAttribute("style", "display:none");
+      // this.showIcon = false;
+      // e.stopPropagation();
     }
   });
 </script>
