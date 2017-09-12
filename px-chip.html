@@ -39,13 +39,13 @@ Custom property | Description
 <dom-module id="px-chip">
   <template>
     <style include="px-chip-styles"></style>
-    <input type="checkbox" id="chipToggle" on-tap="handleSelect">
+    <!-- <input type="checkbox" id="chipToggle" on-tap="handleSelect"> -->
     <label for="chipToggle" class="chip zeta" selected$="[[selected]]">
       <span class="chip__content truncate" selected$="[[selected]]">
         {{content}}
       </span>
       <template is="dom-if" if="{{showIcon}}">
-        <px-icon icon={{icon}} class="chip__actionable-icon" on-tap="_clearTag"></px-icon>
+        <px-icon icon={{icon}} class="chip__actionable-icon"></px-icon>
       </template>
     </label>
   </template>
@@ -67,12 +67,13 @@ Custom property | Description
         type: String
       },
       /**
-      * Whether or not to show an icon
+      * Whether the chip has an icon or not
       *
       * @property selected
       */
       showIcon: {
-        type: Boolean
+        type: Boolean,
+        value: false
       },
       /**
       * The icon to the right of the text
@@ -80,7 +81,8 @@ Custom property | Description
       * @property icon
       */
       icon: {
-        type: String
+        type: String,
+        value: 'px-nav:close'
       },
       /**
       * Whether or not this chip is selected
@@ -90,25 +92,35 @@ Custom property | Description
       selected: {
         type: Boolean,
         notify: true,
-        value: true
+        value: false
+      },
+      /**
+      * Whether or not this chip is selectable
+      *
+      * @property notSelectable
+      */
+      notSelectable: {
+        type: Boolean,
+        value: false
       }
     },
-    /**
-     * update `selected` property based on value of checkbox
-     * @method handleSelect
-     */
-    handleSelect: function() {
-      this.selected = document.querySelector('#chipToggle').checked;
-      this.showIcon = this.selected;
+    listeners: {
+      'tap': '_handleTapped'
     },
-    /**
-     *
-     * @method _clearTag
-     * @param event
-     */
-    _clearTag: function(e) {
-      // this.showIcon = false;
-      // e.stopPropagation();
+
+    _handleTapped(e) {
+      e.stopPropagation();
+      if (!this.notSelectable) {
+        this.selected = !this.selected;
+      }
+      this.fire('px-chip-tapped');
     }
+    // /**
+    //  * update `selected` property based on value of checkbox
+    //  * @method handleSelect
+    //  */
+    // handleSelect: function(e) {
+    //   this.selected = document.querySelector('#chipToggle').checked;
+    // }
   });
 </script>

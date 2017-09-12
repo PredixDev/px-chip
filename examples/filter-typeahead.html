@@ -1,0 +1,106 @@
+<html>
+  <head>
+    <link rel="import" href="../../polymer/polymer.html"/>
+    <link rel="import" href="../px-chip.html"/>
+    <link rel="import" href="../../px-typeahead/px-typeahead.html"/>
+    <link rel="import" href="../../px-theme/px-theme-styles.html"/>
+    <style is="custom-style" include="px-theme-styles"></style>
+  </head>
+
+  <body>
+
+    <filter-demo>
+    </filter-demo>
+
+    <dom-module id="filter-demo">
+      <template>
+        <style>
+          .chips {
+            display: flex;
+          }
+          .chips > *+* {
+            padding-left: 5px;
+          }
+          .typeahead {
+            width: 250px;
+          }
+        </style>
+        <h1>Food</h1>
+        <div class="typeahead">
+          <px-typeahead
+            placeholder="Find food"
+            local-candidates="[[foodItems]]"
+            on-px-typeahead-item-selected="_handleSearchSelected">
+          </px-typeahead>
+        </div>
+
+
+        <!-- <div>
+          <template is="dom-repeat" items="[[food]]">
+            <px-chip content="{{item.name}}"></px-chip>
+          </template>
+        </div> -->
+      </template>
+      <script>
+        Polymer({
+          is: 'filter-demo',
+          properties: {
+            foodItems: {
+              type: Array,
+              value: function() {
+                return [{name: 'steak', tags: ['gluten free','kosher','bro']},
+                        {name: 'salmon', tags: ['gluten free','kosher','bro']},
+                        {name: 'pizza', tags: ['kosher']},
+                        {name: 'shrimp', tags: ['gluten free']},
+                        {name: 'cheeseburger', tags: ['bro']}
+                      ]
+              }
+            },
+            foodNames: {
+              type: Array,
+              value: function(foodItems) {
+                var names = [];
+                for (var i=0; i<foodItems.length; i++) {
+                  names.push(foodItems.name);
+                }
+                return names;
+              }
+            },
+            filters: {
+              type: Array,
+              // computed: 'getFilters'
+            }
+          },
+          _handleSearchSelected: function(evt) {
+            console.log(evt.detail);
+            // var filter = evt.detail;
+            // if (this.chosenComponents.indexOf(filter) === -1) {
+            //   this.push('chosenFilters', filter);
+            //   this.$.search.inputValue = '';
+            // }
+          },
+          // listeners: {
+          //   'chips.px-chip-tapped': 'handleFiltersUpdated'
+          // },
+          // _getFoodFilter: function(selectedFilters) {
+          //   return function(item) {
+          //     return arraysIntersect(selectedFilters, item.tags)
+          //   }
+          // },
+          // handleFiltersUpdated: function() {
+          //   var chips = Polymer.dom(this.root).querySelectorAll('px-chip');
+          //   var filters = [];
+          //   for (var i=0; i<chips.length; i++) {
+          //     if (chips[i].selected) {
+          //       filters.push(chips[i].content);
+          //     }
+          //   }
+          //   this.selectedFilters = filters;
+          // }
+        });
+      </script>
+    </dom-module>
+
+  </body>
+
+</html>

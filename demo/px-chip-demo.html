@@ -38,12 +38,14 @@
         <px-chip
           content="{{props.content.value}}"
           icon="{{props.icon.value}}"
-          show-icon="{{props.showIcon.value}}">
+          show-icon="{{props.showIcon.value}}"
+          selected="{{props.selected.value}}"
+          not-selectable="{{props.notSelectable.value}}">
         </px-chip>
 
-        <template is="dom-if" if="!document.querySelector('#chipToggle').checked">
+        <template is="dom-if">
           <div style="width: 220px; border: 1px solid #D8E0E5; margin-top: 15px; padding-left: 15px;">
-            <p class="actionable" on-click='showChip'>Click to show chip if hidden</p>
+            <p class="regular">Event fired X times</p>
             <p class="caps">(For demo purposes only)</p>
           </div>
         </template>
@@ -91,20 +93,19 @@
         type: Array,
         value: function(){
           return [
-            { configName: "Default",
-              configReset: true }
+            { configName: "Selectable chip",
+              configReset: true
+            },
+            { configName: "Chip with icon",
+              configReset: true,
+              showIcon: true,
+              selected: false,
+              notSelectable: true
+            }
+
           ]
         }
       }
-    },
-
-    /**
-     * Allows the user to re-display the chip on the demo page if they have
-     * hidden it by clicking the 'X' icon
-     */
-    showChip: function() {
-      var chip = document.querySelector('px-chip');
-      chip.style.display = null;
     },
 
     /**
@@ -123,7 +124,17 @@
       },
       showIcon: {
         type: Boolean,
-        defaultValue: true,
+        defaultValue: false,
+        inputType: 'toggle'
+      },
+      selected: {
+        type: Boolean,
+        defaultValue: false,
+        inputType: 'toggle'
+      },
+      notSelectable: {
+        type: Boolean,
+        defaultValue: false,
         inputType: 'toggle'
       }
     }
