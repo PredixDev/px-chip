@@ -23,81 +23,89 @@
           }
           .typeahead {
             width: 250px;
+            margin-bottom: 15px;
           }
         </style>
         <h1>Food</h1>
         <div class="typeahead">
           <px-typeahead
             placeholder="Find food"
-            local-candidates="[[foodItems]]"
+            local-candidates="[[allFilters]]"
             on-px-typeahead-item-selected="_handleSearchSelected">
           </px-typeahead>
         </div>
 
-
-        <!-- <div>
-          <template is="dom-repeat" items="[[food]]">
-            <px-chip content="{{item.name}}"></px-chip>
+        <div id="chips" class="chips">
+          <template is="dom-repeat" items="[[selectedFilters]]">
+            <px-chip content="{{item}}" show-icon not-selectable></px-chip>
           </template>
-        </div> -->
+        </div>
+
+        <div>
+          <template is="dom-repeat" items="[[food]]" filter="{{_getFoodFilter(selectedFilters, selectedFilters.*)}}">
+            <p>{{item.name}}</p>
+          </template>
+        </div>
       </template>
       <script>
         Polymer({
           is: 'filter-demo',
           properties: {
-            foodItems: {
+            food: {
               type: Array,
               value: function() {
-                return [{name: 'steak', tags: ['gluten free','kosher','bro']},
-                        {name: 'salmon', tags: ['gluten free','kosher','bro']},
+                return [{name: 'bacon', tags: ['gluten free']},
+                        {name: 'salmon', tags: ['gluten free','kosher']},
                         {name: 'pizza', tags: ['kosher']},
-                        {name: 'shrimp', tags: ['gluten free']},
-                        {name: 'cheeseburger', tags: ['bro']}
-                      ]
+                        {name: 'quinoa', tags: ['gluten free','kosher','vegan']},
+                        {name: 'hamburger', tags: ['kosher']},
+                        {name: 'kale', tags: ['gluten free','kosher','vegan']}]
               }
             },
-            foodNames: {
+            allFilters: {
               type: Array,
-              value: function(foodItems) {
-                var names = [];
-                for (var i=0; i<foodItems.length; i++) {
-                  names.push(foodItems.name);
-                }
-                return names;
+              value: function() {
+                return ['gluten free','kosher','vegan'];
               }
             },
-            filters: {
+            selectedFilters: {
               type: Array,
-              // computed: 'getFilters'
+              value: function() {
+                return [];
+              }
             }
           },
-          _handleSearchSelected: function(evt) {
-            console.log(evt.detail);
-            // var filter = evt.detail;
-            // if (this.chosenComponents.indexOf(filter) === -1) {
-            //   this.push('chosenFilters', filter);
-            //   this.$.search.inputValue = '';
-            // }
+          listeners: {
+            'chips.px-chip-tapped': '_removeSearchTag'
           },
-          // listeners: {
-          //   'chips.px-chip-tapped': 'handleFiltersUpdated'
-          // },
-          // _getFoodFilter: function(selectedFilters) {
-          //   return function(item) {
-          //     return arraysIntersect(selectedFilters, item.tags)
-          //   }
-          // },
-          // handleFiltersUpdated: function() {
-          //   var chips = Polymer.dom(this.root).querySelectorAll('px-chip');
-          //   var filters = [];
-          //   for (var i=0; i<chips.length; i++) {
-          //     if (chips[i].selected) {
-          //       filters.push(chips[i].content);
-          //     }
-          //   }
-          //   this.selectedFilters = filters;
-          // }
+          _handleSearchSelected: function(evt) {
+            var filter = evt.detail;
+            if (this.selectedFilters.indexOf(filter) === -1) {
+              this.push('selectedFilters', filter);
+              Polymer.dom(this.root).querySelector('px-typeahead').inputValue= '';
+            }
+          },
+          _removeSearchTag: function(evt) {
+            var filter = evt.target.innerText;
+            var trimFilter = filter.slice(0, -1);
+            if (this.selectedFilters.indexOf(trimFilter) > -1) {
+              var index = this.selectedFilters.indexOf(trimFilter);
+              this.splice('selectedFilters', index, 1);
+            }
+          },
+          _getFoodFilter: function(selectedFilters) {
+            return function(item) {
+              return arraysIntersect(selectedFilters, item.tags)
+            }
+          }
         });
+
+        function arraysIntersect(a1, a2) {
+          for (var i=0; i<a1.length; i++) {
+            if (a2.indexOf(a1[i]) > -1) return true;
+          }
+          return false;
+        }
       </script>
     </dom-module>
 
