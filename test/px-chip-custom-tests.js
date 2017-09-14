@@ -1,27 +1,27 @@
+// This is the bootstrapping function that will run the custom tests
+// upon the completion of web components construction by Polymer
+document.addEventListener("WebComponentsReady", function() {
+  runCustomTests();
+});
+
 // This is the wrapper for custom tests, called upon web components ready state
 function runCustomTests() {
-  // Place any setup steps like variable declaration and initialization here
 
-  // This is the placeholder suite to place custom tests in
-  // Use testCase(options) for a more convenient setup of the test cases
-  suite('Custom Automation Tests for px-chip', function() {
-    test('Check initial value of counter', function(done){
-      var counterEl = Polymer.dom(document).querySelector('px-chip'),
-          counterValueEl = Polymer.dom(counterEl.root).querySelector('span');
-      assert.equal(counterValueEl.textContent, '0');
-      done();
+  describe('A static chip', function() {
+    var staticChip = document.getElementById('static-chip');
+    it('updates selected state on click', function() {
+      var isSelected = staticChip.selected;
+      staticChip.click();
+      expect(staticChip.selected).to.equal(!isSelected);
     });
+  });
 
-    test('Clicking px-chip increments the counter', function(done){
-      var counterEl = Polymer.dom(document).querySelector('px-chip'),
-          counterValueEl = Polymer.dom(counterEl.root).querySelector('span');
-      assert.equal(counterValueEl.textContent, '0');
-
-      counterEl.click();
-      flush(function(){
-        assert.equal(counterValueEl.textContent, '1');
-      });
-      done();
+  describe('An actionable chip', function() {
+    var actionableChip = document.getElementById('actionable-chip');
+    it('does not update selected state on click', function() {
+      var isSelected = actionableChip.selected;
+      actionableChip.click();
+      expect(actionableChip.selected).to.equal(isSelected);
     });
   });
 }

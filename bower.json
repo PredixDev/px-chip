@@ -33,7 +33,8 @@
     "px-demo": "^2.0.0",
     "px-theme": "^3.0.0",
     "px-headings-design": "^1.0.3",
-    "px-typeahead": "^2.0.0"
+    "px-typeahead": "^2.0.0",
+    "web-component-tester": "^6.1.5"
   },
   "resolutions": {
     "webcomponentsjs": "^0.7.24"
