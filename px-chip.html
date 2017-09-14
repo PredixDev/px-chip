@@ -39,7 +39,7 @@ Custom property | Description
 <dom-module id="px-chip">
   <template>
     <style include="px-chip-styles"></style>
-    <!-- <input type="checkbox" id="chipToggle" on-tap="handleSelect"> -->
+    <!-- <input type="checkbox" id="chipToggle"> -->
     <label for="chipToggle" class="chip zeta" selected$="[[selected]]">
       <span class="chip__content truncate" selected$="[[selected]]">
         {{content}}
@@ -51,7 +51,6 @@ Custom property | Description
   </template>
 </dom-module>
 
-<!-- <script src="dist/px-chip.js"></script> -->
 <script>
   Polymer({
 
@@ -82,7 +81,7 @@ Custom property | Description
       */
       icon: {
         type: String,
-        value: 'px-nav:close'
+        value: 'px-utl:close'
       },
       /**
       * Whether or not this chip is selected
@@ -107,7 +106,6 @@ Custom property | Description
     listeners: {
       'tap': '_handleTapped'
     },
-
     _handleTapped(e) {
       e.stopPropagation();
       if (!this.notSelectable) {
@@ -115,12 +113,5 @@ Custom property | Description
       }
       this.fire('px-chip-tapped');
     }
-    // /**
-    //  * update `selected` property based on value of checkbox
-    //  * @method handleSelect
-    //  */
-    // handleSelect: function(e) {
-    //   this.selected = document.querySelector('#chipToggle').checked;
-    // }
   });
 </script>
