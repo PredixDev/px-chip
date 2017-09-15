@@ -42,79 +42,18 @@ Custom property | Description
 <dom-module id="px-chip">
   <template>
     <style include="px-chip-styles"></style>
-    <!-- <input type="checkbox" id="chipToggle"> -->
-    <label for="chipToggle" class="chip zeta" selected$="[[selected]]">
-      <span class="chip__content truncate" selected$="[[selected]]">
-        {{content}}
-      </span>
-      <template is="dom-if" if="{{showIcon}}">
-        <px-icon icon={{icon}} class="chip__actionable-icon"></px-icon>
-      </template>
-    </label>
+    <iron-a11y-keys target="[[_el]]" keys="space enter" on-keys-pressed="_handleActivated"></iron-a11y-keys>
+    <div class="chip zeta" selected$="[[selected]]" show-icon$=[[showIcon]]>
+      <div class="flexContainer">
+        <span class="chip__content truncate" selected$="[[selected]]">
+          {{content}}
+        </span>
+        <template is="dom-if" if="{{showIcon}}">
+          <px-icon icon={{icon}} class="chip__actionable-icon"></px-icon>
+        </template>
+      </div>
+    </div>
   </template>
 </dom-module>
 
-<script>
-  Polymer({
-
-    is: 'px-chip',
-
-    properties: {
-      /**
-      * The text in the chip
-      *
-      * @property content
-      */
-      content: {
-        type: String
-      },
-      /**
-      * Whether the chip has an icon or not
-      *
-      * @property selected
-      */
-      showIcon: {
-        type: Boolean,
-        value: false
-      },
-      /**
-      * The icon to the right of the text
-      *
-      * @property icon
-      */
-      icon: {
-        type: String,
-        value: 'px-utl:close'
-      },
-      /**
-      * Whether or not this chip is selected
-      *
-      * @property selected
-      */
-      selected: {
-        type: Boolean,
-        notify: true,
-        value: false
-      },
-      /**
-      * Whether or not this chip is selectable
-      *
-      * @property notSelectable
-      */
-      notSelectable: {
-        type: Boolean,
-        value: false
-      }
-    },
-    listeners: {
-      'tap': '_handleTapped'
-    },
-    _handleTapped(e) {
-      e.stopPropagation();
-      if (!this.notSelectable) {
-        this.selected = !this.selected;
-      }
-      this.fire('px-chip-tapped');
-    }
-  });
-</script>
+<script src="dist/px-chip.js"></script>
