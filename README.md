@@ -2,7 +2,11 @@
 
 ## Overview
 
-px-chip is a Predix UI component
+A chip is a representation of an object or a series of information. For example, a chip can be used to represent a contact or a filter. Use a chip in order to represent complex information in a compact way.
+
+A chip can include text or an icon.
+
+A chip can be created, removed or toggled.
 
 ## Usage
 
