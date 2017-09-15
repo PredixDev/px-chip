@@ -43,30 +43,23 @@
   padding-right: 10px;
   background-color: var(--px-chip-background-color, white);
   border: 1px solid var(--px-chip-border-color, gray);
+  &:hover {
+    cursor: pointer;
+    background-color: var(--px-chip-background-color--hover, rgba(gray, 0.2));
+    border: 1px solid var(--px-chip-border-color--hover, gray);
+    .chip__actionable-icon {
+      color: var(--px-chip-icon-color--hover, blue);
+    }
+  }
 }
 
 :host(:focus) {
   outline: none;
 }
 
-.chip:hover,
-:host(:focus) .chip {
-  cursor: pointer;
-  background-color: var(--px-chip-background-color--hover, rgba(gray, 0.2));
-  border: 1px solid var(--px-chip-border-color--hover, gray);
-  .chip__actionable-icon {
-    color: var(--px-chip-icon-color--hover, blue);
-  }
-}
-
 .chip[selected] {
   background-color: var(--px-chip-background-color--selected, white);
   border: 1px solid var(--px-chip-border-color--selected, blue);
-}
-
-:host(:focus) .chip[selected] {
-  cursor: pointer;
-  background-color: var(--px-chip-background-color--hover, rgba(gray, 0.2));
 }
 
 .chip[show-icon] {
