@@ -1,10 +1,9 @@
 'use strict';(function(){Polymer({is:'px-chip',properties:{/**
-      * The text to display in the chip
+      * The text to display in the chip.
       *
       * @property content
       */content:{type:String},/**
       * Set to true to show an icon in the chip, i.e. to create an Actionable Chip.
-      * Set the `isSelectable` property to false when using an Actionable Chip.
       *
       * @property selected
       */showIcon:{type:Boolean,value:false},/**
@@ -21,10 +20,17 @@
       * Set this property to true when `showIcon` is true. The chip should not
       * be selectable when an icon is showing (i.e. if it is an Actionable Chip).
       *
-      * @property notSelectable
-      */notSelectable:{type:Boolean,value:false},/**
+      * @property disableSelection
+      */disableSelection:{type:Boolean,value:false},/**
       * A reference to this HTML element. Used by iron-a11y-keys.
       *
       * @property _el
-      */_el:{type:HTMLElement}},listeners:{'tap':'_handleActivated'},attached:function attached(){this.setAttribute('tabindex','0');this._el=this},_handleActivated:function _handleActivated(e){e.stopPropagation();if(!this.notSelectable){this.selected=!this.selected}this.fire('px-chip-activated')}})})();
+      */_el:{type:HTMLElement}},listeners:{'tap':'_handleTapped'},attached:function attached(){this.setAttribute('tabindex','0');this._el=this},_handleTapped:function _handleTapped(e){e.stopPropagation();if(!this.disableSelection){this.selected=!this.selected}/**
+       * Event fired when a px-chip is tapped. Use this event to handle toggling
+       * (in the case of a selectable chip), or for taking an action (in the case of an actionable chip).
+       * The `evt.detail` object will contain current values for certain properties, e.g.
+       *
+       *      {"content":"Some text", "selected":false}
+       * @event px-chip-tapped
+       */this.fire('px-chip-tapped',{'content':this.content,'selected':this.selected})}})})();
 //# sourceMappingURL=px-chip.js.map

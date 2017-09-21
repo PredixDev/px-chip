@@ -2,6 +2,7 @@
   <head>
     <link rel="import" href="../../polymer/polymer.html"/>
     <link rel="import" href="../px-chip.html"/>
+    <link rel="import" href="../../px-typeahead/px-typeahead.html"/>
     <link rel="import" href="../../px-theme/px-theme-styles.html"/>
     <style is="custom-style" include="px-theme-styles"></style>
   </head>
@@ -20,15 +21,26 @@
           .chips > *+* {
             padding-left: 5px;
           }
+          .typeahead {
+            width: 250px;
+            margin-bottom: 15px;
+          }
         </style>
         <h1>Food</h1>
-        <dropdown>
-        </dropdown>
-        <div class="chips" id="chips">
-          <px-chip content="kosher"></px-chip>
-          <px-chip content="gluten free"></px-chip>
-          <px-chip content="vegan"></px-chip>
+        <div class="typeahead">
+          <px-typeahead
+            placeholder="Find food"
+            local-candidates="[[allFilters]]"
+            on-px-typeahead-item-selected="_handleSearchSelected">
+          </px-typeahead>
         </div>
+
+        <div id="chips" class="chips">
+          <template is="dom-repeat" items="[[selectedFilters]]">
+            <px-chip content="{{item}}" show-icon not-selectable></px-chip>
+          </template>
+        </div>
+
         <div>
           <template is="dom-repeat" items="[[food]]" filter="{{_getFoodFilter(selectedFilters, selectedFilters.*)}}">
             <p>{{item.name}}</p>
@@ -40,41 +52,51 @@
           is: 'filter-demo',
           properties: {
             food: {
-              type: Object,
+              type: Array,
               value: function() {
                 return [{name: 'bacon', tags: ['gluten free']},
                         {name: 'salmon', tags: ['gluten free','kosher']},
                         {name: 'pizza', tags: ['kosher']},
                         {name: 'quinoa', tags: ['gluten free','kosher','vegan']},
                         {name: 'hamburger', tags: ['kosher']},
-                        {name: 'kale', tags: ['gluten free','kosher','vegan']}
-                      ]
+                        {name: 'kale', tags: ['gluten free','kosher','vegan']}]
+              }
+            },
+            allFilters: {
+              type: Array,
+              value: function() {
+                return ['gluten free','kosher','vegan'];
               }
             },
             selectedFilters: {
               type: Array,
               value: function() {
-                return ['gf'];
+                return [];
               }
             }
           },
           listeners: {
-            'chips.px-chip-activated': 'handleFiltersUpdated'
+            'chips.px-chip-tapped': '_removeSearchTag'
+          },
+          _handleSearchSelected: function(evt) {
+            var filter = evt.detail;
+            if (this.selectedFilters.indexOf(filter) === -1) {
+              this.push('selectedFilters', filter);
+              Polymer.dom(this.root).querySelector('px-typeahead').inputValue= '';
+            }
+          },
+          _removeSearchTag: function(evt) {
+            var filter = evt.target.innerText;
+            var trimFilter = filter.slice(0, -1);
+            if (this.selectedFilters.indexOf(trimFilter) > -1) {
+              var index = this.selectedFilters.indexOf(trimFilter);
+              this.splice('selectedFilters', index, 1);
+            }
           },
           _getFoodFilter: function(selectedFilters) {
             return function(item) {
               return arraysIntersect(selectedFilters, item.tags)
             }
-          },
-          handleFiltersUpdated: function() {
-            var chips = Polymer.dom(this.root).querySelectorAll('px-chip');
-            var filters = [];
-            for (var i=0; i<chips.length; i++) {
-              if (chips[i].selected) {
-                filters.push(chips[i].content);
-              }
-            }
-            this.selectedFilters = filters;
           }
         });
 

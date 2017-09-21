@@ -5,7 +5,7 @@
 
     properties: {
       /**
-      * The text to display in the chip
+      * The text to display in the chip.
       *
       * @property content
       */
@@ -14,7 +14,6 @@
       },
       /**
       * Set to true to show an icon in the chip, i.e. to create an Actionable Chip.
-      * Set the `isSelectable` property to false when using an Actionable Chip.
       *
       * @property selected
       */
@@ -47,9 +46,9 @@
       * Set this property to true when `showIcon` is true. The chip should not
       * be selectable when an icon is showing (i.e. if it is an Actionable Chip).
       *
-      * @property notSelectable
+      * @property disableSelection
       */
-      notSelectable: {
+      disableSelection: {
         type: Boolean,
         value: false
       },
@@ -63,18 +62,26 @@
       }
     },
     listeners: {
-      'tap': '_handleActivated'
+      'tap': '_handleTapped'
     },
     attached() {
       this.setAttribute("tabindex", "0");
       this._el = this;
     },
-    _handleActivated(e) {
+    _handleTapped(e) {
       e.stopPropagation();
-      if (!this.notSelectable) {
+      if (!this.disableSelection) {
         this.selected = !this.selected;
       }
-      this.fire('px-chip-activated');
+      /**
+       * Event fired when a px-chip is tapped. Use this event to handle toggling
+       * (in the case of a selectable chip), or for taking an action (in the case of an actionable chip).
+       * The `evt.detail` object will contain current values for certain properties, e.g.
+       *
+       *      {"content":"Some text", "selected":false}
+       * @event px-chip-tapped
+       */
+      this.fire('px-chip-tapped', {"content":this.content, "selected":this.selected});
     }
   });
 })();

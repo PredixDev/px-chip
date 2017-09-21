@@ -4,7 +4,6 @@
     'gulp serve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
 -->
 <link rel="import" href="../polymer/polymer.html"/>
-<link rel="import" href="../iron-a11y-keys/iron-a11y-keys.html"/>
 <link rel="import" href="../px-icon-set/px-icon-set.html"/>
 <link rel="import" href="../px-icon-set/px-icon.html"/>
 <link rel="import" href="css/px-chip-styles.html"/>
@@ -12,25 +11,33 @@
 <!--
 
 ### Usage
+A Static Chip is a persistent object that can be toggled on and off.
+The static chip is not meant to be dismissed or removed. A Static Chip is best used for curated filters.
+Curated filters will allow a user to filter a page based on commonly used filter criteria.
 
-    <px-chip content="Navigation"></px-chip>
-    <px-chip content="Some text here" icon="px-utl:close" show-icon not-selectable> </px-chip>
+    <px-chip content="Some text here"></px-chip>
+
+An Actionable Chip is an object that represents complex information and allows for actions and states.
+An Actionable Chip can be user generated and can be temporary. Actionable Chip is best used for user-generated filters.
+An Actionable Chip will allow a user to generate a filter that can be applied to a page and allow the user to remove the filter on demand.
+
+    <px-chip content="Some text here" icon="px-utl:close" show-icon disable-selection> </px-chip>
 
 ### Styling
 The following custom properties are available for styling:
 
 Custom property | Description
 :----------------|:-------------
-`--px-chip-border-color` | Border or outline color for chip
 `--px-chip-background-color` | Background color for chip
-`--px-chip-text-color` | Text color for chip content
-`--px-chip-icon-color` | Icon color
-`--px-chip-border-color--hover` | Border or outline color for chip on hover
 `--px-chip-background-color--hover`| Background color for chip on hover
-`--px-chip-text-color--hover` | Text color for chip content on hover
-`--px-chip-icon-color--hover` | Icon color on hover
-`--px-chip-border-color--selected` | Border or outline color for chip on selected
 `--px-chip-background-color--selected` | Background color for chip on selected
+`--px-chip-border-color` | Border or outline color for chip
+`--px-chip-border-color--hover` | Border or outline color for chip on hover
+`--px-chip-border-color--selected` | Border or outline color for chip on selected
+`--px-chip-icon-color` | Icon color
+`--px-chip-icon-color--hover` | Icon color on hover
+`--px-chip-text-color` | Text color for chip content
+`--px-chip-text-color--hover` | Text color for chip content on hover
 `--px-chip-text-color--selected` | Text color for chip content on selected
 
 @element px-chip
@@ -42,7 +49,6 @@ Custom property | Description
 <dom-module id="px-chip">
   <template>
     <style include="px-chip-styles"></style>
-    <iron-a11y-keys target="[[_el]]" keys="space enter" on-keys-pressed="_handleActivated"></iron-a11y-keys>
     <div class="chip zeta" selected$="[[selected]]" show-icon$=[[showIcon]]>
       <div class="flexContainer">
         <span class="chip__content truncate" selected$="[[selected]]">
