@@ -1,6 +1,6 @@
 {
   "name": "px-chip",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": [
     "px-chip.html"
   ],
@@ -33,7 +33,9 @@
     "px-theme": "^3.0.0",
     "px-headings-design": "^1.0.3",
     "px-helpers-design": "^1.0.7",
-    "px-typeahead": "^2.0.0"
+    "px-typeahead": "^2.0.0",
+    "px-normalize-design": "^1.0.2",
+    "px-box-sizing-design": "^1.0.2"
   },
   "resolutions": {
     "webcomponentsjs": "^0.7.24"

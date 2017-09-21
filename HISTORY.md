@@ -1,3 +1,7 @@
+v1.0.2
+==================
+* clean up sass
+
 v1.0.1
 ==================
 * pull comments in babel

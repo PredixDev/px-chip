@@ -24,8 +24,6 @@
 @import "px-helpers-design/_generic.helpers.scss";
 
 // Base
-@import "px-flexbox-design/_base.flexbox.scss";
-@import "px-viewport-design/_base.viewport.scss";
 @import "px-headings-design/_base.headings.scss";
 
 // Meta
@@ -38,8 +36,8 @@
   display: inline-block;
   align-items: center;
   height: calculateRem(20px);
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: calculateRem(10px);
+  padding-right: calculateRem(10px);
   background-color: var(--px-chip-background-color, white);
   border: 1px solid var(--px-chip-border-color, gray);
   &:hover {
@@ -75,7 +73,7 @@
   line-height: calculateRem(18px);
   display: inline-block;
   min-width: 0px;
-  max-width: 120px;
+  max-width: var(--px-chip-max-width, calculateRem(120px));
   color: var(--px-chip-text-color, gray);
 }
 
@@ -85,9 +83,7 @@
 
 .chip__actionable-icon {
   color: var(--px-chip-icon-color, gray);
-  margin-left: 5px;
+  margin-left: calculateRem(5px);
 }
 
 // Trumps
-@import "px-spacing-responsive-design/_trumps.spacing-responsive.scss";
-@import "px-widths-responsive-design/_trumps.widths-responsive.scss";
