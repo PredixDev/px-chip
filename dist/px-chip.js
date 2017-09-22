@@ -20,12 +20,12 @@
       * Set this property to true when `showIcon` is true. The chip should not
       * be selectable when an icon is showing (i.e. if it is an Actionable Chip).
       *
-      * @property disableSelection
-      */disableSelection:{type:Boolean,value:false},/**
+      * @property notSelectable
+      */notSelectable:{type:Boolean,value:false},/**
       * A reference to this HTML element. Used by iron-a11y-keys.
       *
       * @property _el
-      */_el:{type:HTMLElement}},listeners:{'tap':'_handleTapped'},attached:function attached(){this.setAttribute('tabindex','0');this._el=this},_handleTapped:function _handleTapped(e){e.stopPropagation();if(!this.disableSelection){this.selected=!this.selected}/**
+      */_el:{type:HTMLElement}},listeners:{'tap':'_handleTapped'},attached:function attached(){this.setAttribute('tabindex','0');this._el=this},_handleTapped:function _handleTapped(e){e.stopPropagation();if(!this.notSelectable){this.selected=!this.selected}/**
        * Event fired when a px-chip is tapped. Use this event to handle toggling
        * (in the case of a selectable chip), or for taking an action (in the case of an actionable chip).
        * The `evt.detail` object will contain current values for certain properties, e.g.

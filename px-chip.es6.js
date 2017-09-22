@@ -46,9 +46,9 @@
       * Set this property to true when `showIcon` is true. The chip should not
       * be selectable when an icon is showing (i.e. if it is an Actionable Chip).
       *
-      * @property disableSelection
+      * @property notSelectable
       */
-      disableSelection: {
+      notSelectable: {
         type: Boolean,
         value: false
       },
@@ -70,7 +70,7 @@
     },
     _handleTapped(e) {
       e.stopPropagation();
-      if (!this.disableSelection) {
+      if (!this.notSelectable) {
         this.selected = !this.selected;
       }
       /**

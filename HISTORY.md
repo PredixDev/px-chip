@@ -1,3 +1,7 @@
+v1.0.3
+==================
+* change property name back
+
 v1.0.2
 ==================
 * clean up sass

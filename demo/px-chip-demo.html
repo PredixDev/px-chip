@@ -40,7 +40,7 @@
           icon="{{props.icon.value}}"
           show-icon="{{props.showIcon.value}}"
           selected="{{props.selected.value}}"
-          disable-selection="{{props.disableSelection.value}}">
+          not-selectable="{{props.notSelectable.value}}">
         </px-chip>
 
       </px-demo-component>
@@ -92,7 +92,7 @@
             { configName: "Actionable chip",
               showIcon: true,
               selected: false,
-              disableSelection: true
+              notSelectable: true
             }
 
           ]
@@ -124,7 +124,7 @@
         defaultValue: false,
         inputType: 'toggle'
       },
-      disableSelection: {
+      notSelectable: {
         type: Boolean,
         defaultValue: false,
         inputType: 'toggle'
