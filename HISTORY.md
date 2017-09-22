@@ -1,3 +1,7 @@
+v1.0.4
+==================
+* reduce icon size
+
 v1.0.3
 ==================
 * change property name back

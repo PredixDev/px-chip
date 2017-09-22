@@ -50,6 +50,11 @@
   }
 }
 
+.chip__actionable-icon {
+  --iron-icon-height: calculateRem(12px);
+  --iron-icon-width: calculateRem(12px);
+}
+
 :host(:focus) {
   outline: none;
 }
