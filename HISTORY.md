@@ -1,3 +1,7 @@
+v1.0.5
+==================
+* remove transpilation
+
 v1.0.4
 ==================
 * reduce icon size
