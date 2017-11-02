@@ -1,3 +1,7 @@
+v1.0.7
+==================
+* add iron-a11y-keys back in
+
 v1.0.6
 ==================
 * add device flags
