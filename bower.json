@@ -26,7 +26,8 @@
   ],
   "dependencies": {
     "polymer": "^1.9.0",
-    "px-icon-set": "^2.0.0"
+    "px-icon-set": "^2.0.0",
+    "iron-a11y-keys": "^2.0.0"
   },
   "devDependencies": {
     "px-demo": "^2.0.0",
