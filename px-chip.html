@@ -135,7 +135,9 @@ Custom property | Description
       this._el = this;
     },
     _handleTapped: function(e) {
-      e.detail.keyboardEvent.preventDefault();
+      if (e.detail.keyboardEvent) {
+        e.detail.keyboardEvent.preventDefault()
+      }
       e.stopPropagation();
       if (!this.notSelectable) {
         this.selected = !this.selected;

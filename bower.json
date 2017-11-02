@@ -36,7 +36,8 @@
     "px-helpers-design": "^1.0.7",
     "px-typeahead": "^2.0.0",
     "px-normalize-design": "^1.0.2",
-    "px-box-sizing-design": "^1.0.2"
+    "px-box-sizing-design": "^1.0.2",
+    "web-component-tester": "^6.4.0"
   },
   "resolutions": {
     "webcomponentsjs": "^0.7.24"
