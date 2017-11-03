@@ -1,3 +1,7 @@
+v1.0.8
+==================
+* check if tap event came from keyboard or click
+
 v1.0.7
 ==================
 * add iron-a11y-keys back in
