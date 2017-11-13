@@ -82,6 +82,10 @@
   color: var(--px-chip-text-color, gray);
 }
 
+.chip:hover .chip__content {
+  color: var(--px-chip-icon-color--hover, blue);
+}
+
 .chip__content[selected] {
   color: var(--px-chip-text-color--selected, blue);
 }
