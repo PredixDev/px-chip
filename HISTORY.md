@@ -1,3 +1,7 @@
+v1.1.2
+==================
+* Remove deploy.sh
+
 v1.1.1
 ==================
 * Update text color on hover
