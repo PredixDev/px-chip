@@ -6,3 +6,4 @@ reports
 .yo-rc.json
 bower-*.json
 monogram-wdmk.png
+deploy.sh
