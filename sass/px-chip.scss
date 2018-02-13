@@ -29,43 +29,32 @@
 // Meta
 
 // Objects
+$inuit-enable-btn--bare : true;
+$inuit-enable-btn--icon : true;
+@import "px-buttons-design/_objects.buttons.scss";
 
 // Component
+
+:host(:focus) {
+  outline: none;
+}
 
 .chip {
   display: inline-block;
   align-items: center;
   height: calculateRem(20px);
-  padding-left: calculateRem(10px);
-  padding-right: calculateRem(10px);
   background-color: var(--px-chip-background-color, white);
   border: 1px solid var(--px-chip-border-color, gray);
   &:hover {
     cursor: pointer;
     background-color: var(--px-chip-background-color--hover, rgba(gray, 0.2));
     border: 1px solid var(--px-chip-border-color--hover, gray);
-    .chip__actionable-icon {
-      color: var(--px-chip-icon-color--hover, blue);
-    }
   }
-}
-
-.chip__actionable-icon {
-  --iron-icon-height: calculateRem(12px);
-  --iron-icon-width: calculateRem(12px);
-}
-
-:host(:focus) {
-  outline: none;
 }
 
 .chip[selected] {
   background-color: var(--px-chip-background-color--selected, white);
   border: 1px solid var(--px-chip-border-color--selected, blue);
-}
-
-.chip[show-icon] {
-  padding-right: 5px;
 }
 
 .flexContainer {
@@ -75,6 +64,8 @@
 }
 
 .chip__content {
+  padding-left: calculateRem(10px);
+  padding-right: calculateRem(10px);
   line-height: calculateRem(18px);
   display: inline-block;
   min-width: 0px;
@@ -82,17 +73,38 @@
   color: var(--px-chip-text-color, gray);
 }
 
-.chip:hover .chip__content {
-  color: var(--px-chip-icon-color--hover, blue);
+.chip[show-icon] .chip__content {
+  padding-right: calculateRem(5px);
+  &:hover {
+    color: var(--px-chip-icon-color--hover, blue);
+  }
+}
+
+.chip__content:focus {
+  outline: none;
 }
 
 .chip__content[selected] {
   color: var(--px-chip-text-color--selected, blue);
 }
 
-.chip__actionable-icon {
+.chip__button {
+  height: calculateRem(16px);
+  width: calculateRem(16px);
+}
+
+.chip[show-icon] .chip__button {
+  padding-right: calculateRem(5px);
+}
+
+.chip__button--icon {
   color: var(--px-chip-icon-color, gray);
-  margin-left: calculateRem(5px);
+  --iron-icon-height: calculateRem(16px);
+  --iron-icon-width: calculateRem(16px);
+}
+
+.chip__button:hover .chip__button--icon {
+  color: var(--px-chip-icon-color--hover, blue);
 }
 
 // Trumps

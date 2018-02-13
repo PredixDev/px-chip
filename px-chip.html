@@ -53,9 +53,11 @@ Custom property | Description
     <iron-a11y-keys target="[[_el]]" keys="space enter" on-keys-pressed="_handleTapped"></iron-a11y-keys>
     <div class="chip zeta" selected$="[[selected]]" show-icon$=[[showIcon]]>
       <div class="flexContainer">
-        <span class="chip__content truncate" selected$="[[selected]]">{{content}}</span>
+        <span id="content" class="chip__content truncate" selected$="[[selected]]">{{content}}</span>
         <template is="dom-if" if="{{showIcon}}">
-          <px-icon icon={{icon}} class="chip__actionable-icon"></px-icon>
+          <button class="btn btn--bare btn--icon chip__button">
+            <px-icon icon={{icon}} class="chip__button--icon"></px-icon>
+          </button>
         </template>
       </div>
     </div>
@@ -129,12 +131,20 @@ Custom property | Description
       'tap': '_handleTapped'
     },
     attached: function() {
-      this.setAttribute("tabindex", "0");
-      this._el = this;
+      this._el = this.$.content;
+      this._el.setAttribute("tabindex", "0");
     },
     _handleTapped: function(e) {
+      var contentTapped = false;
+      var iconTapped = false;
+      const {rootTarget} = Polymer.dom(e);
       if (e.detail.keyboardEvent) {
-        e.detail.keyboardEvent.preventDefault()
+        e.detail.keyboardEvent.preventDefault();
+      }
+      if (rootTarget.nodeName === 'SPAN' || rootTarget.nodeName === 'IRON-A11Y-KEYS') {
+        contentTapped = true;
+      } else if (rootTarget.nodeName === 'IRON-ICON' || rootTarget.nodeName === 'BUTTON') {
+        iconTapped = true;
       }
       e.stopPropagation();
       if (!this.notSelectable) {
@@ -143,12 +153,12 @@ Custom property | Description
       /**
        * Event fired when a px-chip is tapped. Use this event to handle toggling
        * (in the case of a selectable chip), or for taking an action (in the case of an actionable chip).
-       * The `evt.detail` object will contain current values for certain properties, e.g.
+       * The `evt.detail` object will contain current values for certain properties and variables, e.g.
        *
-       *      {"content":"Some text", "selected":false}
+       *      {"content" : "Some text", "selected" : false, "contentTapped" : false, "iconTapped" : true}
        * @event px-chip-tapped
        */
-      this.fire('px-chip-tapped', {"content":this.content, "selected":this.selected});
+      this.fire('px-chip-tapped', { "content" : this.content, "selected" : this.selected, "contentTapped" : contentTapped, "iconTapped" : iconTapped });
     }
   });
 </script>
