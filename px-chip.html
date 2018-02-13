@@ -50,7 +50,7 @@ Custom property | Description
 <dom-module id="px-chip">
   <template>
     <style include="px-chip-styles"></style>
-    <iron-a11y-keys target="[[_el]]" keys="space enter" on-keys-pressed="_handleTapped"></iron-a11y-keys>
+    <iron-a11y-keys target="[[_chipContent]]" keys="space enter" on-keys-pressed="_handleTapped"></iron-a11y-keys>
     <div class="chip zeta" selected$="[[selected]]" show-icon$=[[showIcon]]>
       <div class="flexContainer">
         <span id="content" class="chip__content truncate" selected$="[[selected]]">{{content}}</span>
@@ -119,11 +119,11 @@ Custom property | Description
         value: false
       },
       /**
-      * A reference to this HTML element. Used by iron-a11y-keys.
+      * A reference to the 'content' part of the chip. Used by iron-a11y-keys.
       *
-      * @property _el
+      * @property _chipContent
       */
-      _el: {
+      _chipContent: {
         type: HTMLElement
       }
     },
@@ -131,8 +131,8 @@ Custom property | Description
       'tap': '_handleTapped'
     },
     attached: function() {
-      this._el = this.$.content;
-      this._el.setAttribute("tabindex", "0");
+      this._chipContent = this.$.content;
+      this._chipContent.setAttribute("tabindex", "0");
     },
     _handleTapped: function(e) {
       var contentTapped = false;
