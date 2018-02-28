@@ -22,12 +22,15 @@ describe('A static chip', function() {
   it('fires "px-chip-tapped" with correct detail', function() {
     var handleFn = sinon.spy(staticChip, '_handleTapped');
     var eventFn = sinon.stub();
-    var detail = {"content":"my chip","selected":true};
+    var detail = {"content":"my chip","selected":true,"contentTapped":true,"iconTapped":false};
     staticChip.addEventListener('px-chip-tapped', eventFn);
-    staticChip.click();
-    expect(handleFn).to.have.been.calledOnce;
-    expect(eventFn).to.have.been.calledOnce;
-    expect(eventFn.args[0][0].detail).to.deep.equal(detail);
+    flush(() => {
+      const chipContent = Polymer.dom(staticChip.root).querySelector('.chip__content');
+      chipContent.click();
+      expect(handleFn).to.have.been.calledOnce;
+      expect(eventFn).to.have.been.calledOnce;
+      expect(eventFn.args[0][0].detail).to.deep.equal(detail);
+    });
   });
 });
 
@@ -44,14 +47,33 @@ describe('An actionable chip', function() {
     expect(actionableChip.selected).to.equal(isSelected);
   });
 
-  it('fires "px-chip-tapped" with correct detail', function() {
+  it('fires "px-chip-tapped" with correct detail when chip content is tapped', function() {
     var handleFn = sinon.spy(actionableChip, '_handleTapped');
     var eventFn = sinon.stub();
-    var detail = {"content":"chips yum","selected":false};
+    var detail = {"content":"chips yum","selected":false,"contentTapped":true,"iconTapped":false};
+
     actionableChip.addEventListener('px-chip-tapped', eventFn);
-    actionableChip.click();
-    expect(handleFn).to.have.been.calledOnce;
-    expect(eventFn).to.have.been.calledOnce;
-    expect(eventFn.args[0][0].detail).to.deep.equal(detail);
+    flush(() => {
+      const chipContent = Polymer.dom(actionableChip.root).querySelector('.chip__content');
+      chipContent.click();
+      expect(handleFn).to.have.been.calledOnce;
+      expect(eventFn).to.have.been.calledOnce;
+      expect(eventFn.args[0][0].detail).to.deep.equal(detail);
+    });
+  });
+
+  it('fires "px-chip-tapped" with correct detail when chip icon is tapped', function() {
+    var handleFn = sinon.spy(actionableChip, '_handleTapped');
+    var eventFn = sinon.stub();
+    var detail = {"content":"chips yum","selected":false,"contentTapped":false,"iconTapped":true};
+
+    actionableChip.addEventListener('px-chip-tapped', eventFn);
+    flush(() => {
+      const chipButton = Polymer.dom(actionableChip.root).querySelector('.chip__button');
+      chipButton.click();
+      expect(handleFn).to.have.been.calledOnce;
+      expect(eventFn).to.have.been.calledOnce;
+      expect(eventFn.args[0][0].detail).to.deep.equal(detail);
+    });
   });
 });
