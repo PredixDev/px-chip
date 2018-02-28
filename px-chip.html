@@ -130,17 +130,18 @@ Custom property | Description
     listeners: {
       'tap': '_handleTapped'
     },
-    attached: function() {
+    ready: function() {
       this._chipContent = this.$.content;
       this._chipContent.setAttribute("tabindex", "0");
     },
     _handleTapped: function(e) {
-      var contentTapped = false;
-      var iconTapped = false;
+      let contentTapped = false;
+      let iconTapped = false;
       const {rootTarget} = Polymer.dom(e);
       if (e.detail.keyboardEvent) {
         e.detail.keyboardEvent.preventDefault();
       }
+
       if (rootTarget.nodeName === 'SPAN' || rootTarget.nodeName === 'IRON-A11Y-KEYS') {
         contentTapped = true;
       } else if (rootTarget.nodeName === 'IRON-ICON' || rootTarget.nodeName === 'BUTTON') {
@@ -150,6 +151,7 @@ Custom property | Description
       if (!this.notSelectable) {
         this.selected = !this.selected;
       }
+
       /**
        * Event fired when a px-chip is tapped. Use this event to handle toggling
        * (in the case of a selectable chip), or for taking an action (in the case of an actionable chip).
