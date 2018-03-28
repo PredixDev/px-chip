@@ -1,3 +1,7 @@
+v1.1.4
+==================
+* Distinguish between taps on content vs icon for actionable chip
+
 v1.1.3
 ==================
 * Fix demo for IE.
