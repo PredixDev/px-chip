@@ -101,12 +101,11 @@ $inuit-enable-btn--icon : true;
 
 .chip[show-icon] .chip__button {
   padding-right: calculateRem(5px);
+  line-height: calculateRem(15px);
 }
 
 .chip__button--icon {
   color: var(--px-chip-icon-color, gray);
-  --iron-icon-height: calculateRem(16px);
-  --iron-icon-width: calculateRem(16px);
 }
 
 .chip__button:hover .chip__button--icon {
